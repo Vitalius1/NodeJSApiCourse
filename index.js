@@ -63,6 +63,7 @@ var server = http.createServer((req, res) => {
       const payloadString = JSON.stringify(resolvedPayload);
 
       // Return the response
+      res.setHeader('Content-Type', 'application/json');
       res.writeHead(resolvedStatusCode);
       res.end(payloadString);
       console.log(
@@ -79,7 +80,7 @@ server.listen(3000, () => {
   console.log("The server is listening on port 3000 now.");
 });
 
-// Define the handlers
+// Define the handlers.
 const handlers = {};
 
 // Sample handler
