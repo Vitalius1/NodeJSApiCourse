@@ -8,8 +8,8 @@ const http = require("http");
 const https = require("https");
 const url = require("url");
 const StringDecoder = require("string_decoder").StringDecoder;
-const config = require('./config');
-const fs = require('fs');
+const config = require("./config");
+const fs = require("fs");
 
 // Instantiating the HTTP server
 const httpServer = http.createServer((req, res) => {
@@ -18,13 +18,15 @@ const httpServer = http.createServer((req, res) => {
 
 // Start the HTTP server
 httpServer.listen(config.httpPort, () => {
-  console.log(`The server is listening on port ${config.httpPort} in ${config.envName} mode`);
+  console.log(
+    `The server is listening on port ${config.httpPort} in ${config.envName} mode`
+  );
 });
 
 // Instantiating the HTTPS server
 const httpsServerOptions = {
-  key: fs.readFileSync('./https/key.pem'),
-  cert: fs.readFileSync('./https/cert.pem')
+  key: fs.readFileSync("./https/key.pem"),
+  cert: fs.readFileSync("./https/cert.pem")
 };
 const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
   unifiedServer(req, res);
@@ -32,7 +34,9 @@ const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
 
 // Start the HTTPS server
 httpsServer.listen(config.httpsPort, () => {
-  console.log(`The server is listening on port ${config.httpsPort} in ${config.envName} mode`);
+  console.log(
+    `The server is listening on port ${config.httpsPort} in ${config.envName} mode`
+  );
 });
 
 // All the server logic for both the http and https server
@@ -90,7 +94,7 @@ function unifiedServer(req, res) {
       const payloadString = JSON.stringify(resolvedPayload);
 
       // Return the response
-      res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Content-Type", "application/json");
       res.writeHead(resolvedStatusCode);
       res.end(payloadString);
       console.log(
