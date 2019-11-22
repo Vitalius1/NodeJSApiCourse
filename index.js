@@ -20,9 +20,7 @@ const httpServer = http.createServer((req, res) => {
 
 // Start the HTTP server
 httpServer.listen(config.httpPort, () => {
-  console.log(
-    `The server is listening on port ${config.httpPort} in ${config.envName} mode`
-  );
+  console.log(`The server is listening on port ${config.httpPort} in ${config.envName} mode`);
 });
 
 // Instantiating the HTTPS server
@@ -36,9 +34,7 @@ const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
 
 // Start the HTTPS server
 httpsServer.listen(config.httpsPort, () => {
-  console.log(
-    `The server is listening on port ${config.httpsPort} in ${config.envName} mode`
-  );
+  console.log(`The server is listening on port ${config.httpsPort} in ${config.envName} mode`);
 });
 
 // All the server logic for both the http and https server
@@ -69,10 +65,7 @@ function unifiedServer(req, res) {
     buffer += decoder.end();
 
     // Choose the handler this request should go to. If one is not found use the Not found handler.
-    const chosenHandler =
-      typeof router[trimmedPath] !== "undefined"
-        ? router[trimmedPath]
-        : handlers.notFound;
+    const chosenHandler = typeof router[trimmedPath] !== "undefined" ? router[trimmedPath] : handlers.notFound;
 
     // Construct the data object to send to the handler
     const data = {
@@ -86,8 +79,7 @@ function unifiedServer(req, res) {
     // Route the request to the hand=ler specified in the router
     chosenHandler(data, (statusCode, payload) => {
       // Use the status code called by the handler, or default to 200
-      const resolvedStatusCode =
-        typeof statusCode === "number" ? statusCode : 200;
+      const resolvedStatusCode = typeof statusCode === "number" ? statusCode : 200;
 
       // Use the payload called by the handler, or default to empty object
       const resolvedPayload = typeof payload === "object" ? payload : {};
@@ -99,11 +91,7 @@ function unifiedServer(req, res) {
       res.setHeader("Content-Type", "application/json");
       res.writeHead(resolvedStatusCode);
       res.end(payloadString);
-      console.log(
-        "Returning this response: ",
-        resolvedStatusCode,
-        payloadString
-      );
+      console.log("Returning this response: ", resolvedStatusCode, payloadString);
     });
   });
 }
